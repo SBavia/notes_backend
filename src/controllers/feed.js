@@ -3,10 +3,10 @@ import Notes from "../models/notes.js";
 export const getNotes = async (req, res, next) => {
   try {
     const totalItems = await Notes.find().countDocuments();
-    const posts = await Notes.find();
+    const notes = await Notes.find();
 
     res.status(200).json({
-      posts,
+      notes,
       totalItems,
       message: "Fetched notes successfully!",
     });
@@ -82,7 +82,7 @@ export const editNote = async (req, res, next) => {
     const result = await note.save();
 
     res.status(200).json({
-      post: result,
+      note: result,
       message: "Updated note successfully!",
     });
   } catch (err) {
