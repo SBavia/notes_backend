@@ -1,34 +1,23 @@
 import { Router } from "express";
-// const { body } = require("express-validator");
 
-import { getPosts } from "../controllers/feed.js";
+import {
+  getNotes,
+  createNote,
+  getNote,
+  editNote,
+  deleteNote,
+} from "../controllers/feed.js";
 
 const router = Router();
 
-router.get("/posts", getPosts);
+router.get("/notes", getNotes);
 
-// router.post(
-//   "/post",
-//   isAuth,
-//   [
-//     body("title").trim().isLength({ min: 5 }),
-//     body("content").trim().isLength({ min: 5 }),
-//   ],
-//   feedController.createPost
-// );
+router.post("/note", createNote);
 
-// router.get("/post/:postId", isAuth, feedController.getPost);
+router.get("/notes/:noteId", getNote);
 
-// router.put(
-//   "/post/:postId",
-//   isAuth,
-//   [
-//     body("title").trim().isLength({ min: 5 }),
-//     body("content").trim().isLength({ min: 5 }),
-//   ],
-//   feedController.updatePost
-// );
+router.put("/notes/:noteId", editNote);
 
-// router.delete("/post/:postId", isAuth, feedController.deletePost);
+router.delete("/notes/:noteId", deleteNote);
 
 export default router;
