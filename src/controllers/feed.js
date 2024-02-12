@@ -26,9 +26,10 @@ export const createNote = async (req, res, next) => {
   });
 
   try {
-    await note.save();
+    const result = await note.save();
 
     res.status(201).json({
+      note: result,
       message: "Created note successfully!",
     });
   } catch (err) {
