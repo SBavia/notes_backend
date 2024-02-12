@@ -1,18 +1,17 @@
-import { config } from "dotenv";
+import dotenv from "dotenv";
 import express from "express";
 import serverless from "serverless-http";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
 import cors from "cors";
-
-config();
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
 
 import feedRoutes from "./../src/routes/feed.js";
+
+dotenv.config();
 
 const api = express();
 
 api.use(cors());
-
 api.use(bodyParser.json());
 
 api.use("/api/", feedRoutes);
@@ -25,14 +24,17 @@ api.use((error, req, res, next) => {
   res.status(status).json({ message, data });
 });
 
-let handler;
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
-    handler = serverless(api);
-    // console.log('connected');
-    // api.listen(8080);
+    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB");
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB:", err);
+    process.exit(1);
+  });
+
+const handler = serverless(api);
 
 export { handler };
